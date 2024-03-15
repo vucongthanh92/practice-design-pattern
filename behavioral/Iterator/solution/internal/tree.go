@@ -2,11 +2,16 @@ package internal
 
 // Tree Iterator
 
-type TreeIterator struct {
+type TreeNode struct {
+	val      TransferInterface
+	children []TreeNode
+}
+
+type TreePointer struct {
 	node *TreeNode
 }
 
-func (t TreeIterator) toArray(node *TreeNode) []TransferInterface {
+func (t TreePointer) toArray(node *TreeNode) []TransferInterface {
 	if node == nil {
 		return nil
 	}
@@ -20,7 +25,7 @@ func (t TreeIterator) toArray(node *TreeNode) []TransferInterface {
 	return arr
 }
 
-func (t TreeIterator) toLinkedList(node *TreeNode, lNode *LinkedNode) *LinkedNode {
+func (t TreePointer) toLinkedList(node *TreeNode, lNode *LinkedNode) *LinkedNode {
 	if node == nil {
 		return nil
 	}
@@ -37,19 +42,14 @@ func (t TreeIterator) toLinkedList(node *TreeNode, lNode *LinkedNode) *LinkedNod
 	return lNode
 }
 
-func (t TreeIterator) Iterator() TransferIterator {
+func (t TreePointer) Iterator() TransferIterator {
 	return NewImplementLinkedList(t.toLinkedList(t.node, nil))
 }
 
-func NewImplementTree(node *TreeNode) TreeIterator {
-	return TreeIterator{
+func NewImplementTree(node *TreeNode) TreePointer {
+	return TreePointer{
 		node: node,
 	}
-}
-
-type TreeNode struct {
-	val      TransferInterface
-	children []TreeNode
 }
 
 var TreeMockupData = &TreeNode{

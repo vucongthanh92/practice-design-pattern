@@ -2,27 +2,27 @@ package internal
 
 // Linked-list iterator
 
-type LinkedListIterator struct {
-	node *LinkedNode
-}
-
-func (l *LinkedListIterator) HasNext() bool {
-	return l.node != nil
-}
-
-func (l *LinkedListIterator) Next() TransferInterface {
-	node := l.node
-	l.node = node.next
-	return node.val
-}
-
 type LinkedNode struct {
 	val  TransferInterface
 	next *LinkedNode
 }
 
+type LinkedPointer struct {
+	node *LinkedNode
+}
+
+func (l *LinkedPointer) HasNext() bool {
+	return l.node != nil
+}
+
+func (l *LinkedPointer) Next() TransferInterface {
+	node := l.node
+	l.node = node.next
+	return node.val
+}
+
 func NewImplementLinkedList(node *LinkedNode) TransferIterator {
-	return &LinkedListIterator{node: node}
+	return &LinkedPointer{node: node}
 }
 
 var LinkedListMockupData = &LinkedNode{
